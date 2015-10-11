@@ -15,22 +15,38 @@
 
     <div class="fillerContent">
         <h1>Learning D3.js</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur <span class="touche-de-rouge">If this text is red, the CSS is working</span> adipisicing elit. Tempore tenetur inventore voluptatum ut fuga, nemo rem, perspiciatis dolor earum dicta, pariatur perferendis quae nisi id expedita excepturi. Porro, deleniti, vel!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore tenetur inventore voluptatum ut fuga, nemo rem, perspiciatis dolor earum dicta, pariatur perferendis quae nisi id expedita excepturi. Porro, deleniti, vel!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore tenetur inventore voluptatum ut fuga, nemo rem, perspiciatis dolor earum dicta, pariatur perferendis quae nisi id expedita excepturi. Porro, deleniti, vel!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur <span class="touche-de-rouge">If this text is red, the CSS is working</span> adipisicing elit. Tempore tenetur inventore voluptatum ut fuga, nemo rem, perspiciatis dolor earum dicta.</p>
+        <p>pariatur perferendis quae nisi id expedita excepturi. Porro, deleniti, vel!</p>
     </div>
 
     <hr>
 
     <section id="chart">
-        <div class="item">1</div>
-        <div class="item">2</div>
-        <div class="item">3</div>
-        <div class="item">4</div>
-        <div class="item">5</div>
-        <div class="item">6</div>
-        <div class="item">7</div>
-        <div class="item">8</div>
+    </section>
+
+    <hr>
+
+    <svg width="100%" height="20em" style="background:#93a1a1">
+        <rect x="10%" y="10%" width="80%" height="80%"
+            style="fill:#c61c65" />
+        <circle cx="50%" cy="50%" r="25%"
+            style="fill:#840043" />
+        <text x="10%" y="90%"
+            font-family="Lato"
+            font-size="2em"
+            fill="white">SVG Graphic</text>
+        <g id="testGroup">
+            <polyline points="10 35,30 10,50 35"
+                style="fill:#f7b330" />
+        </g>
+        <use xlink:href="#testGroup"
+            x="100" y="100" />
+    </svg>
+
+    <hr>
+
+    <section id="chartTwo">
+        
     </section>
 
     
