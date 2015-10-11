@@ -1,20 +1,39 @@
+
+var // Sizes
+    height = 400,
+    width = 600,
+    barWidth = 40,
+    barOffset = 10;
+
+var yScale = d3.scale.linear()
+    .domain([0,d3.max(barData)])
+    .range([0, height]);
+
+var xScale = d3.scale.ordinal()
+    .domain(d3.range(0, barData.length))
+    .rangeBands([0,width]);
+
+var colours = d3.scale.linear()
+    .domain([0,barData.length * .33, barData.length * .66,barData.length])
+    .range(['#ffb832','#c61c6f','#268bd2','#85992c']);
+
 d3.select('#chartThree').append('svg')
     .attr('width',width)
-    .attr('height',height + 'em')
-    .style('background','#c9d7d6')
+    .attr('height',height)
+    // .style('background','#c9d7d6')
     .selectAll('rect').data(barData)
     .enter().append('rect')
-        .style('fill','#c61c6f')
-        .attr('width',barWidth + 'em')
+        .style('fill',function(d,i){
+            return colours(i);
+        })
+        .attr('width',xScale.rangeBand())
         .attr('height',function(d){
-            return d + '%';
+            return yScale(d);
         })
         .attr('x',function(d,i){
-            var newOffset = i * (barWidth + barOffset);
-            console.log(newOffset);
-            return newOffset + 'em';
+            return xScale(i);
         })
         .attr('y',function(d){
-            var verticalPos = 100 - d;
-            return verticalPos + '%';
+            return height - yScale(d);
         })
+

@@ -43,10 +43,8 @@ var myStyles = [
     }
 ];
 
-var barData = [20,30,45,15,25,5,55,15,20,10,45,15];
+var barData = [];
 
-var // Sizes
-    height = 20,
-    width = '100%',
-    barWidth = 4,
-    barOffset = 1;
+for (var i = 0; i < 50; i++) {
+    barData.push(Math.random()*30)
+};
