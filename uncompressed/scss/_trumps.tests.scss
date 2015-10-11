@@ -1,5 +1,6 @@
 html{
 	background:#eee;
+    font-family:$text;
 }
 body{
 	padding:2em;
@@ -11,4 +12,8 @@ h1{
 	margin-bottom:1em;
 	font-family:$display;
     // color:blue;
+}
+
+strong{
+    font-weight:bold;
 }
