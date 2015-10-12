@@ -19,6 +19,12 @@ var colours = d3.scale.linear()
 
 var tempColour;
 
+var tooltip = d3.select('body').append('div')
+    .style('position','absolute')
+    .style('padding','0 1em')
+    .style('background','white')
+    .style('opacity',0)
+
 var myChart = d3.select('#chartThree').append('svg')
     .attr('width',width)
     .attr('height',height)
@@ -39,6 +45,14 @@ var myChart = d3.select('#chartThree').append('svg')
             return xScale(i);
         })
     .on('mouseover',function(d){
+
+        tooltip.transition(250)
+            .style('opacity',.9)
+            .style('left', (d3.event.pageX - '10') + 'px')
+            .style('top', (d3.event.pageY) + 'px')
+
+        tooltip.html(Math.round(d))
+
         tempColour = this.style.fill;
         d3.select(this)
             .transition().duration(800)
@@ -62,3 +76,5 @@ myChart.transition()
     .delay(function(d,i){
         return i * 20;
     })
+    .duration(1000)
+    .ease('elastic')
