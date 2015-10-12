@@ -19,7 +19,7 @@ var colours = d3.scale.linear()
 
 var tempColour;
 
-d3.select('#chartThree').append('svg')
+var myChart = d3.select('#chartThree').append('svg')
     .attr('width',width)
     .attr('height',height)
     // .style('background','#c9d7d6')
@@ -30,13 +30,13 @@ d3.select('#chartThree').append('svg')
         })
         .attr('width',xScale.rangeBand())
         .attr('height',function(d){
-            return yScale(d);
+            return 0;
+        })
+        .attr('y',function(d){
+            return height;
         })
         .attr('x',function(d,i){
             return xScale(i);
-        })
-        .attr('y',function(d){
-            return height - yScale(d);
         })
     .on('mouseover',function(d){
         tempColour = this.style.fill;
@@ -52,3 +52,13 @@ d3.select('#chartThree').append('svg')
             .style('fill',tempColour)
     })
 
+myChart.transition()
+    .attr('height',function(d){
+        return yScale(d);
+    })
+    .attr('y',function(d){
+        return height - yScale(d);
+    })
+    .delay(function(d,i){
+        return i * 20;
+    })
