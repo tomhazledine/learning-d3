@@ -1,7 +1,14 @@
 
+var margin = {
+    top: 30,
+    right: 30,
+    bottom: 40,
+    left: 50
+}
+
 var // Sizes
-    height = 400,
-    width = 600,
+    height = 400 - margin.top - margin.bottom,
+    width = 600 - margin.left - margin.right,
     barWidth = 40,
     barOffset = 10;
 
@@ -15,7 +22,7 @@ var vGuideScale = d3.scale.linear()
 
 var xScale = d3.scale.ordinal()
     .domain(d3.range(0, barData.length))
-    .rangeBands([0,width]);
+    .rangeBands([0,width], .5);
 
 var colours = d3.scale.linear()
     .domain([0,barData.length * .33, barData.length * .66,barData.length])
@@ -34,9 +41,11 @@ barData.sort(function compareNumbers(a,b){
 })
 
 var myChart = d3.select('#chartThree').append('svg')
-    .attr('height',height)
-    .attr('width',width)
+    .style('background','#e7e0cb')
+    .attr('height',height + margin.top + margin.bottom)
+    .attr('width',width + margin.left + margin.right)
     .append('g')
+    .attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
     .attr('width',width)
     .attr('height',height)
     // .style('background','#c9d7d6')
@@ -95,7 +104,7 @@ var vAxis = d3.svg.axis()
 
 var vGuide = d3.select('#chartThree svg').append('g')
     vAxis(vGuide)
-    vGuide.attr('transform','translate(35,0)')
+    vGuide.attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
     vGuide.selectAll('path')
         .style({fill: 'none',stroke: "#000"})
     vGuide.selectAll('line')
@@ -110,7 +119,7 @@ var hAxis = d3.svg.axis()
 
 var hGuide = d3.select('#chartThree svg').append('g')
     hAxis(hGuide)
-    hGuide.attr('transform','translate(0, ' + (height - 30) + ')')
+    hGuide.attr('transform','translate(' + margin.left + ', ' + (height + margin.top) + ')')
     hGuide.selectAll('path')
         .style({fill: 'none',stroke: "#000"})
     hGuide.selectAll('line')
