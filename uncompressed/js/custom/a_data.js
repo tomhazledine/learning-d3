@@ -45,6 +45,15 @@ var myStyles = [
 
 var barData = [];
 
-for (var i = 0; i < 50; i++) {
-    barData.push(Math.round(Math.random()*100))
-};
+// for (var i = 0; i < 50; i++) {
+//     barData.push(Math.round(Math.random()*100))
+// };
+
+d3.tsv('/data.tsv',function(data) {
+    for (key in data) {
+        barData.push(data[key].value)
+    }
+
+    drawBarChart(barData);
+    // console.log(barData);
+});
