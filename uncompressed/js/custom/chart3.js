@@ -25,6 +25,10 @@ var tooltip = d3.select('body').append('div')
     .style('background','white')
     .style('opacity',0)
 
+barData.sort(function compareNumbers(a,b){
+    return a - b;
+})
+
 var myChart = d3.select('#chartThree').append('svg')
     .attr('width',width)
     .attr('height',height)
@@ -48,10 +52,10 @@ var myChart = d3.select('#chartThree').append('svg')
 
         tooltip.transition(250)
             .style('opacity',.9)
-            .style('left', (d3.event.pageX - '10') + 'px')
-            .style('top', (d3.event.pageY) + 'px')
 
         tooltip.html(Math.round(d))
+            .style('left', (d3.event.pageX - '10') + 'px')
+            .style('top', (d3.event.pageY) + 'px')
 
         tempColour = this.style.fill;
         d3.select(this)
@@ -60,6 +64,7 @@ var myChart = d3.select('#chartThree').append('svg')
             .style('fill','yellow')
     })
     .on('mouseout',function(d){
+
         d3.select(this)
             .transition().duration(800)
             .style('opacity',1)
