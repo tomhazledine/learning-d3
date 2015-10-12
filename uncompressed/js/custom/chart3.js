@@ -17,6 +17,8 @@ var colours = d3.scale.linear()
     .domain([0,barData.length * .33, barData.length * .66,barData.length])
     .range(['#ffb832','#c61c6f','#268bd2','#85992c']);
 
+var tempColour;
+
 d3.select('#chartThree').append('svg')
     .attr('width',width)
     .attr('height',height)
@@ -36,4 +38,15 @@ d3.select('#chartThree').append('svg')
         .attr('y',function(d){
             return height - yScale(d);
         })
+    .on('mouseover',function(d){
+        tempColour = this.style.fill;
+        d3.select(this)
+            .style('opacity',.5)
+            .style('fill','yellow')
+    })
+    .on('mouseout',function(d){
+        d3.select(this)
+            .style('opacity',1)
+            .style('fill',tempColour)
+    })
 
