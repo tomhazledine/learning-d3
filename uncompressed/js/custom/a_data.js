@@ -46,5 +46,5 @@ var myStyles = [
 var barData = [];
 
 for (var i = 0; i < 50; i++) {
-    barData.push(Math.random()*30)
+    barData.push(Math.round(Math.random()*100))
 };

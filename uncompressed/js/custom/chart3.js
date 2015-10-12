@@ -9,6 +9,10 @@ var yScale = d3.scale.linear()
     .domain([0,d3.max(barData)])
     .range([0, height]);
 
+var vGuideScale = d3.scale.linear()
+    .domain([0,d3.max(barData)])
+    .range([height,0]);
+
 var xScale = d3.scale.ordinal()
     .domain(d3.range(0, barData.length))
     .rangeBands([0,width]);
@@ -30,6 +34,9 @@ barData.sort(function compareNumbers(a,b){
 })
 
 var myChart = d3.select('#chartThree').append('svg')
+    .attr('height',height)
+    .attr('width',width)
+    .append('g')
     .attr('width',width)
     .attr('height',height)
     // .style('background','#c9d7d6')
@@ -50,23 +57,20 @@ var myChart = d3.select('#chartThree').append('svg')
         })
     .on('mouseover',function(d){
 
-        tooltip.transition(250)
-            .style('opacity',.9)
+        tooltip.style('opacity',.9)
 
-        tooltip.html(Math.round(d))
-            .style('left', (d3.event.pageX - '10') + 'px')
-            .style('top', (d3.event.pageY) + 'px')
+        tooltip.html(d)
+            .style('left', (d3.event.pageX - 40) + 'px')
+            .style('top', (d3.event.pageY - 20) + 'px')
 
         tempColour = this.style.fill;
         d3.select(this)
-            .transition().duration(800)
             .style('opacity',.5)
             .style('fill','yellow')
     })
     .on('mouseout',function(d){
 
         d3.select(this)
-            .transition().duration(800)
             .style('opacity',1)
             .style('fill',tempColour)
     })
@@ -79,7 +83,35 @@ myChart.transition()
         return height - yScale(d);
     })
     .delay(function(d,i){
-        return i * 20;
+        return i * 10;
     })
-    .duration(1000)
+    .duration(800)
     .ease('elastic')
+
+var vAxis = d3.svg.axis()
+    .scale(vGuideScale)
+    .orient('left')
+    .ticks(10)
+
+var vGuide = d3.select('#chartThree svg').append('g')
+    vAxis(vGuide)
+    vGuide.attr('transform','translate(35,0)')
+    vGuide.selectAll('path')
+        .style({fill: 'none',stroke: "#000"})
+    vGuide.selectAll('line')
+        .style({stroke: "#000"})
+
+var hAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient('bottom')
+    .tickValues(xScale.domain().filter(function(d,i){
+        return !(i % (barData.length/5));
+    }))
+
+var hGuide = d3.select('#chartThree svg').append('g')
+    hAxis(hGuide)
+    hGuide.attr('transform','translate(0, ' + (height - 30) + ')')
+    hGuide.selectAll('path')
+        .style({fill: 'none',stroke: "#000"})
+    hGuide.selectAll('line')
+        .style({stroke: "#000"})
