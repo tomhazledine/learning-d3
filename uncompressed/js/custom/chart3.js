@@ -41,11 +41,13 @@ d3.select('#chartThree').append('svg')
     .on('mouseover',function(d){
         tempColour = this.style.fill;
         d3.select(this)
+            .transition().duration(800)
             .style('opacity',.5)
             .style('fill','yellow')
     })
     .on('mouseout',function(d){
         d3.select(this)
+            .transition().duration(800)
             .style('opacity',1)
             .style('fill',tempColour)
     })
