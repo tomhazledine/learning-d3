@@ -39,9 +39,9 @@ function drawBarChart(data){
         // .style('background','white')
         // .style('opacity',0)
 
-    barData.sort(function compareNumbers(a,b){
-        return a - b;
-    })
+    // barData.sort(function compareNumbers(a,b){
+    //     return a - b;
+    // })
 
     var myChart = d3.select('#chartThree').append('svg')
         .style('background','#e7e0cb')
