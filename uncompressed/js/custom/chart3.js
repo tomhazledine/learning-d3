@@ -1,14 +1,14 @@
 //*
 
 function drawBarChart(data){
-    var margin = {
-        top: 30,
-        right: 30,
-        bottom: 40,
-        left: 50
-    }
 
     var // Sizes
+        margin = {
+            top: 30,
+            right: 30,
+            bottom: 40,
+            left: 50
+        }
         height = 400 - margin.top - margin.bottom,
         width = 600 - margin.left - margin.right,
         barWidth = 40,
@@ -18,13 +18,13 @@ function drawBarChart(data){
         .domain([0,d3.max(barData)])
         .range([0, height]);
 
-    var vGuideScale = d3.scale.linear()
-        .domain([0,d3.max(barData)])
-        .range([height,0]);
-
     var xScale = d3.scale.ordinal()
         .domain(d3.range(0, barData.length))
         .rangeBands([0,width], .5);
+
+    var vGuideScale = d3.scale.linear()
+        .domain([0,d3.max(barData)])
+        .range([height,0]);
 
     var colours = d3.scale.linear()
         .domain([0,barData.length * .33, barData.length * .66,barData.length])
@@ -33,10 +33,11 @@ function drawBarChart(data){
     var tempColour;
 
     var tooltip = d3.select('body').append('div')
-        .style('position','absolute')
-        .style('padding','0 1em')
-        .style('background','white')
-        .style('opacity',0)
+        .classed('tooltip',true)
+        // .style('position','absolute')
+        // .style('padding','0 1em')
+        // .style('background','white')
+        // .style('opacity',0)
 
     barData.sort(function compareNumbers(a,b){
         return a - b;
@@ -72,7 +73,7 @@ function drawBarChart(data){
 
             tooltip.html(d)
                 .style('left', (d3.event.pageX - 40) + 'px')
-                .style('top', (d3.event.pageY - 20) + 'px')
+                .style('top', (d3.event.pageY) + 'px')
 
             tempColour = this.style.fill;
             d3.select(this)
