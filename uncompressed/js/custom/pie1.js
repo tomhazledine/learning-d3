@@ -1,23 +1,23 @@
-function drawPieChart(data){
+function drawPieChart(data,colours){
 	
 	var // Sizes
 		width = 400,
 		height = 400,
 		radius = 200;
 
-	var // Colours
-		coloursPreset = d3.scale.category20c(),
-		colours = d3.scale.ordinal()
-			.range([
-				'#595ab7',
-				'#a57706',
-				'#d11c24',
-				'#c61c6f',
-				'#bd3613',
-				'#2176c7',
-				'#259286',
-				'#738a05'
-			]);
+	// var // Colours
+	// 	coloursPreset = d3.scale.category20c(),
+	// 	colours = d3.scale.ordinal()
+	// 		.range([
+	// 			'#595ab7',
+	// 			'#a57706',
+	// 			'#d11c24',
+	// 			'#c61c6f',
+	// 			'#bd3613',
+	// 			'#2176c7',
+	// 			'#259286',
+	// 			'#738a05'
+	// 		]);
 
 	var pie = d3.layout.pie()
 		.value(function(d){
