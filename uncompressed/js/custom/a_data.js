@@ -77,12 +77,12 @@ var pieData = [
 ]
 
 var nodes = [
-    { name: 'Parent' },
-    { name: 'Child1'},
-    { name: 'Child2', target[0]},
-    { name: 'Child3', target[0]},
-    { name: 'Child4', target[1]},
-    { name: 'Child5', target[0,1,2,3]}
+    // { name: 'Parent' },
+    // { name: 'Child1'},
+    // { name: 'Child2', target[0]},
+    // { name: 'Child3', target[0]},
+    // { name: 'Child4', target[1]},
+    // { name: 'Child5', target[0,1,2,3]}
 ]
 
 // d3.tsv('/data.tsv',function(data) {
@@ -94,6 +94,6 @@ var nodes = [
     // console.log(barData);
 // });
 
-drawPieChart(nodes,coloursPreset);
+drawPieChart(pieData,coloursPreset);
 
-drawForceChart(pieData,palette);
+drawForceChart(nodes,palette);

@@ -6,5 +6,5 @@ function drawForceChart(data,colours){
 	var circleWidth = 5;
 
 	var links = [
-	]
+	];
 }
