@@ -74,16 +74,16 @@ var pieData = [
         label: "Jennifer",
         value: 50
     }
-]
+];
 
-var nodes = [
-    // { name: 'Parent' },
-    // { name: 'Child1'},
-    // { name: 'Child2', target[0]},
-    // { name: 'Child3', target[0]},
-    // { name: 'Child4', target[1]},
-    // { name: 'Child5', target[0,1,2,3]}
-]
+// var nodes = [
+//     { name: 'Parent'},
+//     { name: 'Child1'},
+//     { name: 'Child2', target[0]},
+//     { name: 'Child3', target[0]},
+//     { name: 'Child4', target[1]},
+//     { name: 'Child5', target[0,1,2,3]}
+// ];
 
 // d3.tsv('/data.tsv',function(data) {
 //     for (key in data) {
@@ -94,6 +94,5 @@ var nodes = [
     // console.log(barData);
 // });
 
-drawPieChart(pieData,coloursPreset);
 
-drawForceChart(nodes,palette);
+// drawForceChart(nodes,palette);
