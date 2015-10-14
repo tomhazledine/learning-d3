@@ -49,6 +49,33 @@ for (var i = 0; i < 50; i++) {
     barData.push(Math.round(Math.random()*100))
 };
 
+var pieData = [
+    {
+        label: "Barot",
+        value: 50
+    },
+    {
+        label: "Gerard",
+        value: 50
+    },
+    {
+        label: "Jonathan",
+        value: 50
+    },
+    {
+        label: "Lorenzo",
+        value: 50
+    },
+    {
+        label: "Hilary",
+        value: 50
+    },
+    {
+        label: "Jennifer",
+        value: 50
+    }
+]
+
 // d3.tsv('/data.tsv',function(data) {
 //     for (key in data) {
 //         barData.push(data[key].value)
@@ -57,3 +84,5 @@ for (var i = 0; i < 50; i++) {
     drawBarChart(barData);
     // console.log(barData);
 // });
+
+drawPieChart(pieData);
