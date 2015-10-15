@@ -2,60 +2,60 @@ var nodes = [
     {
         name: 'Parent',
         value: 10,
-        colour: palette[0],
+        colour: palette['olive'],
     },
     { 
         name: 'Child1',
         value: 50,
-        colour: palette[1],
+        colour: palette['green'],
         target: [0]
     },
     { 
         name: 'Child2',
         value: 60,
-        colour: palette[2],
+        colour: palette['teal'],
         target: [1]
     },
     { 
         name: 'Child3',
         value: 45,
-        colour: palette[3],
+        colour: palette['teal'],
         target: [1]
     },
     { 
         name: 'Child4',
         value: 50,
-        colour: palette[4],
+        colour: palette['teal'],
         target: [1]
     },
     { 
         name: 'Child5',
         value: 40,
-        colour: palette[5],
+        colour: palette['teal'],
         target: [1]
     },
     { 
         name: 'Child7',
         value: 11,
-        colour: palette[6],
+        colour: palette['purple'],
         target: [5]
     },
     { 
         name: 'Child8',
         value: 8,
-        colour: palette[7],
+        colour: palette['purple'],
         target: [5]
     },
     { 
         name: 'Child9',
         value: 14,
-        colour: palette[8],
+        colour: palette['purple'],
         target: [5]
     },
     { 
         name: 'Child10',
         value: 6,
-        colour: palette[9],
+        colour: palette['purple'],
         target: [5]
     }
 ];
@@ -116,13 +116,7 @@ function drawForceChart(data,colours){
         .text(function(d){ return d.name })
         .attr('font-family','Lato')
         .attr('cursor','pointer')
-        .attr('fill',function(d,i){
-            if (i>0) {
-                return colours.maroon
-            } else {
-                return colours.navy
-            }
-        })
+        .attr('fill',function(d){ return d.colour })
         .attr('text-anchor','end')
         .attr('font-size',function(d,i){
             if (i>0) {
