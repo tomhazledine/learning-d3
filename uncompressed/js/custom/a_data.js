@@ -94,5 +94,7 @@ var pieData = [
     // console.log(barData);
 // });
 
+drawPieChart(pieData,colours);
+
 
 // drawForceChart(nodes,palette);
