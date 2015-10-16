@@ -1,6 +1,6 @@
-/*
+var DrawBar = function drawBar(options){
 
-function drawBarChart(data){
+    var barData = options.data;
 
     var // Sizes
         margin = {
@@ -128,5 +128,3 @@ function drawBarChart(data){
         hGuide.selectAll('line')
             .style({stroke: "#000"})
 }
-
-//*/

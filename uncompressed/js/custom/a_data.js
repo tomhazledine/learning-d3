@@ -90,7 +90,11 @@ var pieData = [
 //         barData.push(data[key].value)
 //     }
 
-    drawBarChart(barData);
+    var args = {
+        'data': barData
+    };
+
+    var barOne = DrawBar(args);
     // console.log(barData);
 // });
 
