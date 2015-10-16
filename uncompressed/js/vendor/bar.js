@@ -1,5 +1,13 @@
-
-
+/**
+ * ------------------------------------------------------------------------------------------
+ * DRAW BAR
+ * Draws a bar chart using given options.
+ *
+ * options.barData = [array of integers] The data to be drawn).
+ * options.wrapper = [d3.selection] Container element for the graph.
+ * options.margin = [array of 4 integers] The px-value of margins (top, right, bottom, left).
+ * ------------------------------------------------------------------------------------------
+ */
 var DrawBar = function drawBar(options){
 
     /**
@@ -37,18 +45,28 @@ var DrawBar = function drawBar(options){
         var wrapper = options.wrapper;
     }
 
-    var // Setting Sizes
-        wrapperWidth = parseInt(wrapper.style('width')),
-        wrapperHeight = parseInt(wrapper.style('height'));
+    /**
+     * --------
+     * SETTINGS
+     *
+     * Sizes
+     * Scales
+     * --------
+     */
 
-    var // Sizes
+    /**
+     * Sizes
+     */
+    var wrapperWidth = parseInt(wrapper.style('width')),
+        wrapperHeight = parseInt(wrapper.style('height')),
         height = wrapperHeight - margin.top - margin.bottom,
         width = wrapperWidth - margin.left - margin.right,
-        // console.log(height);
-        // console.log(width);
         barWidth = 40,
         barOffset = 10;
 
+    /**
+     * Scales
+     */
     var yScale = d3.scale.linear()
         .domain([0,d3.max(barData)])
         .range([0, height]);
