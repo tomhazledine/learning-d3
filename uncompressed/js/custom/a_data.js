@@ -90,11 +90,18 @@ var pieData = [
 //         barData.push(data[key].value)
 //     }
 
-    var args = {
-        'data': barData
+    var barArgs = {
+        'data': barData,
+        'wrapper': d3.select('#chartThree'),
+        'margins': {
+            top: 30,
+            right: 30,
+            bottom: 40,
+            left: 50
+        }
     };
 
-    var barOne = DrawBar(args);
+    var barOne = DrawBar(barArgs);
     // console.log(barData);
 // });
 

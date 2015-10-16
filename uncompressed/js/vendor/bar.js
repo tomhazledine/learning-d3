@@ -1,16 +1,51 @@
+
+
 var DrawBar = function drawBar(options){
 
-    var barData = options.data;
+    /**
+     * ---------------------------------
+     * OPTIONS
+     * Use fallback values if options
+     * are not set in the function call,
+     * otherwise use defined options.
+     * ---------------------------------
+     */
+    
+    /**
+     * Fallbacks
+     */
+    var
+        barData = [1,2,3],
+        wrapper = d3.select('body'),
+        margin = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20
+        };
+
+    /**
+     * Set Options (if declared)
+     */
+    if ( options.margins !== undefined ) {
+        var margin = options.margins;
+    }
+    if ( options.data !== undefined ) {
+        var barData = options.data;
+    }
+    if ( options.wrapper !== undefined ) {
+        var wrapper = options.wrapper;
+    }
+
+    var // Setting Sizes
+        wrapperWidth = parseInt(wrapper.style('width')),
+        wrapperHeight = parseInt(wrapper.style('height'));
 
     var // Sizes
-        margin = {
-            top: 30,
-            right: 30,
-            bottom: 40,
-            left: 50
-        }
-        height = 400 - margin.top - margin.bottom,
-        width = 600 - margin.left - margin.right,
+        height = wrapperHeight - margin.top - margin.bottom,
+        width = wrapperWidth - margin.left - margin.right,
+        // console.log(height);
+        // console.log(width);
         barWidth = 40,
         barOffset = 10;
 
@@ -43,7 +78,7 @@ var DrawBar = function drawBar(options){
         return a - b;
     })
 
-    var myChart = d3.select('#chartThree').append('svg')
+    var myChart = wrapper.append('svg')
         .style('background','#e7e0cb')
         .attr('height',height + margin.top + margin.bottom)
         .attr('width',width + margin.left + margin.right)
@@ -105,7 +140,7 @@ var DrawBar = function drawBar(options){
         .orient('left')
         .ticks(10)
 
-    var vGuide = d3.select('#chartThree svg').append('g')
+    var vGuide = wrapper.select('svg').append('g')
         vAxis(vGuide)
         vGuide.attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
         vGuide.selectAll('path')
