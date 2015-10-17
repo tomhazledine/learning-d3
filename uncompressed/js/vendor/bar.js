@@ -37,7 +37,8 @@ var DrawBar = function drawBar(options){
             '#c61c6f',
             '#268bd2',
             '#85992c'
-        ];
+        ],
+        sort = true;
 
     /**
      * Set Options (if declared)
@@ -53,6 +54,9 @@ var DrawBar = function drawBar(options){
     }
     if ( options.colours !== undefined ) {
         var colours = options.colours;
+    }
+    if ( options.sort === false ) {
+        var sort = false;
     }
 
     /**
@@ -119,12 +123,20 @@ var DrawBar = function drawBar(options){
         // .style('background','white')
         // .style('opacity',0)
 
-    barData.sort(function compareNumbers(a,b){
-        return a - b;
-    })
+    /**
+     * ------------
+     * DATA SORTING
+     * ------------
+     */
+    if (sort) {
+        barData.sort(function compareNumbers(a,b){
+            return a - b;
+        })
+    }
+    
 
     var myChart = wrapper.append('svg')
-        .style('background','#e7e0cb')
+        // .style('background','#e7e0cb')
         .attr('height',height + margin.top + margin.bottom)
         .attr('width',width + margin.left + margin.right)
         .append('g')

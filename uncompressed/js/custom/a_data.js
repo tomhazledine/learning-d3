@@ -38,14 +38,14 @@ var myStyles = [
     },
     {
         colour: '#268bd2',
-        name: 'Daniel Reeves',
+        name: 'Daniel Wozniak',
         width: 4.2
     }
 ];
 
 var barData = [];
 
-for (var i = 0; i < 50; i++) {
+for (var i = 0; i < 100; i++) {
     barData.push(Math.round(Math.random()*100))
 };
 
@@ -99,16 +99,8 @@ var barOne = DrawBar({
         bottom: 40,
         left: 50
     },
-    'colours': [
-        '#595ab7',
-        '#a57706',
-        '#d11c24',
-        '#c61c6f',
-        '#bd3613',
-        '#2176c7',
-        '#259286',
-        '#738a05'
-    ]
+    'colours': colours.range(),
+    'sort': true
 });
 
 drawPieChart(pieData,colours);

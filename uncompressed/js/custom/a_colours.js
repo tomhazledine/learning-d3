@@ -31,3 +31,18 @@ var palette = {
 	'grey': '#aaa',
 	'black': '#111'
 }
+
+var paletteArray = objectIntoArray(palette);
+
+// for (var colour in palette) {
+//     paletteArray.push(palette[colour]);
+// }
+console.log(coloursPreset.range());
+
+function objectIntoArray(object){
+	var newArray = [];
+	for (var key in object) {
+	    newArray.push(object[key]);
+	}
+	return newArray;
+}
