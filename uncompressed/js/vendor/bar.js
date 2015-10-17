@@ -103,7 +103,6 @@ var DrawBar = function drawBar(options){
     if (colours.length > 2) {
         for ( var x = 0; x < colours.length; x++) {
             var multiplier = (x * (100 / (colours.length - 1)) / 100);
-            console.log(multiplier);
             colourDomain.push(barData.length * multiplier);
         }
     }
@@ -111,7 +110,7 @@ var DrawBar = function drawBar(options){
         .domain(colourDomain)
         .range(colours);
 
-    
+
 
     var tooltip = d3.select('body').append('div')
         .classed('tooltip',true)

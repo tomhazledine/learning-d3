@@ -45,7 +45,7 @@ var myStyles = [
 
 var barData = [];
 
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 50; i++) {
     barData.push(Math.round(Math.random()*100))
 };
 
@@ -100,18 +100,14 @@ var barOne = DrawBar({
         left: 50
     },
     'colours': [
-        '#ff0000',
-        '#00ff00',
-        '#0000ff',
-        '#ffff00'
-        // '#595ab7',
-        // '#a57706',
-        // '#d11c24',
-        // '#c61c6f',
-        // '#bd3613',
-        // '#2176c7',
-        // '#259286',
-        // '#738a05'
+        '#595ab7',
+        '#a57706',
+        '#d11c24',
+        '#c61c6f',
+        '#bd3613',
+        '#2176c7',
+        '#259286',
+        '#738a05'
     ]
 });
 
