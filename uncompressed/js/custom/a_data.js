@@ -45,7 +45,7 @@ var myStyles = [
 
 var barData = [];
 
-for (var i = 0; i < 50; i++) {
+for (var i = 0; i < 100; i++) {
     barData.push(Math.round(Math.random()*100))
 };
 
@@ -90,20 +90,30 @@ var pieData = [
 //         barData.push(data[key].value)
 //     }
 
-    var barArgs = {
-        'data': barData,
-        'wrapper': d3.select('#chartThree'),
-        'margins': {
-            top: 30,
-            right: 30,
-            bottom: 40,
-            left: 50
-        }
-    };
-
-    var barOne = DrawBar(barArgs);
-    // console.log(barData);
-// });
+var barOne = DrawBar({
+    'data': barData,
+    'wrapper': d3.select('#chartThree'),
+    'margins': {
+        top: 30,
+        right: 30,
+        bottom: 40,
+        left: 50
+    },
+    'colours': [
+        '#ff0000',
+        '#00ff00',
+        '#0000ff',
+        '#ffff00'
+        // '#595ab7',
+        // '#a57706',
+        // '#d11c24',
+        // '#c61c6f',
+        // '#bd3613',
+        // '#2176c7',
+        // '#259286',
+        // '#738a05'
+    ]
+});
 
 drawPieChart(pieData,colours);
 

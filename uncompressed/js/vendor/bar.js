@@ -13,6 +13,7 @@ var DrawBar = function drawBar(options){
     /**
      * ---------------------------------
      * OPTIONS
+     * 
      * Use fallback values if options
      * are not set in the function call,
      * otherwise use defined options.
@@ -30,7 +31,13 @@ var DrawBar = function drawBar(options){
             right: 20,
             bottom: 20,
             left: 20
-        };
+        },
+        colours = [
+            '#ffb832',
+            '#c61c6f',
+            '#268bd2',
+            '#85992c'
+        ];
 
     /**
      * Set Options (if declared)
@@ -43,6 +50,9 @@ var DrawBar = function drawBar(options){
     }
     if ( options.wrapper !== undefined ) {
         var wrapper = options.wrapper;
+    }
+    if ( options.colours !== undefined ) {
+        var colours = options.colours;
     }
 
     /**
@@ -79,11 +89,29 @@ var DrawBar = function drawBar(options){
         .domain([0,d3.max(barData)])
         .range([height,0]);
 
-    var colours = d3.scale.linear()
-        .domain([0,barData.length * .33, barData.length * .66,barData.length])
-        .range(['#ffb832','#c61c6f','#268bd2','#85992c']);
-
+    /**
+     * ---------------------
+     * COLOURS
+     *
+     * Spread colours evenly
+     * across the width of
+     * the chart.
+     * ---------------------
+     */
     var tempColour;
+    var colourDomain = [];
+    if (colours.length > 2) {
+        for ( var x = 0; x < colours.length; x++) {
+            var multiplier = (x * (100 / (colours.length - 1)) / 100);
+            console.log(multiplier);
+            colourDomain.push(barData.length * multiplier);
+        }
+    }
+    var colours = d3.scale.linear()
+        .domain(colourDomain)
+        .range(colours);
+
+    
 
     var tooltip = d3.select('body').append('div')
         .classed('tooltip',true)
