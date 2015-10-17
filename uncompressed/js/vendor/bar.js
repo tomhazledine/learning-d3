@@ -115,13 +115,13 @@ var DrawBar = function drawBar(options){
         .range(colours);
 
 
-
+    /**
+     * -------
+     * TOOLTIP
+     * -------
+     */
     var tooltip = d3.select('body').append('div')
         .classed('tooltip',true)
-        // .style('position','absolute')
-        // .style('padding','0 1em')
-        // .style('background','white')
-        // .style('opacity',0)
 
     /**
      * ------------
@@ -134,16 +134,18 @@ var DrawBar = function drawBar(options){
         })
     }
     
-
+    /**
+     * ---------------
+     * BUILD THE GRAPH
+     * ---------------
+     */
     var myChart = wrapper.append('svg')
-        // .style('background','#e7e0cb')
         .attr('height',height + margin.top + margin.bottom)
         .attr('width',width + margin.left + margin.right)
         .append('g')
         .attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
         .attr('width',width)
         .attr('height',height)
-        // .style('background','#c9d7d6')
         .selectAll('rect').data(barData)
         .enter().append('rect')
             .style('fill',function(d,i){
@@ -179,6 +181,11 @@ var DrawBar = function drawBar(options){
                 .style('fill',tempColour)
         })
 
+    /**
+     * -----------
+     * TRANSITIONS
+     * -----------
+     */
     myChart.transition()
         .attr('height',function(d){
             return yScale(d);
@@ -191,6 +198,17 @@ var DrawBar = function drawBar(options){
         })
         .duration(800)
         .ease('elastic')
+
+    /**
+     * -------------
+     * AXES & GUIDES
+     *
+     * vAxis
+     * vGuide
+     * hAxis
+     * hGuide
+     * -------------
+     */
 
     var vAxis = d3.svg.axis()
         .scale(vGuideScale)
