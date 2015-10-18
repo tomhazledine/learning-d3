@@ -61,182 +61,62 @@ var DrawLine = function drawLine(options){
         var sort = false;
     }
 
-    // /**
-    //  * --------
-    //  * SETTINGS
-    //  *
-    //  * Sizes
-    //  * Scales
-    //  * --------
-    //  */
+    /**
+     * ----------
+     * SETTINGS
+     *
+     * Sizes
+     * Scales
+     * Axes
+     * Line
+     * Parse Date
+     * ----------
+     */
 
-    // /**
-    //  * Sizes
-    //  */
-    // var wrapperWidth = parseInt(wrapper.style('width')),
-    //     wrapperHeight = parseInt(wrapper.style('height')),
-    //     height = wrapperHeight - margin.top - margin.bottom,
-    //     width = wrapperWidth - margin.left - margin.right,
-    //     barWidth = 40,
-    //     barOffset = 10;
+    /**
+     * Sizes
+     */
+    var wrapperWidth = parseInt(wrapper.style('width')),
+        wrapperHeight = parseInt(wrapper.style('height')),
+        height = wrapperHeight - margin.top - margin.bottom,
+        width = wrapperWidth - margin.left - margin.right,
+        barWidth = 40,
+        barOffset = 10;
 
-    // /**
-    //  * Scales
-    //  */
-    // var yScale = d3.scale.linear()
-    //     .domain([0,d3.max(barData)])
-    //     .range([0, height]);
+    /**
+     * Scales
+     */
+    var x = d3.time.scale()
+        .range([0,width]);
 
-    // var xScale = d3.scale.ordinal()
-    //     .domain(d3.range(0, barData.length))
-    //     .rangeBands([0,width], .5);
+    var y = d3.scale.linear()
+        .range([height, 0]);
 
-    // var vGuideScale = d3.scale.linear()
-    //     .domain([0,d3.max(barData)])
-    //     .range([height,0]);
+    /**
+     * Axes
+     */
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient('bottom');
 
-    // /**
-    //  * ---------------------
-    //  * COLOURS
-    //  *
-    //  * Spread colours evenly
-    //  * across the width of
-    //  * the chart.
-    //  * ---------------------
-    //  */
-    // var tempColour;
-    // var colourDomain = [];
-    // if (colours.length > 2) {
-    //     for ( var x = 0; x < colours.length; x++) {
-    //         var multiplier = (x * (100 / (colours.length - 1)) / 100);
-    //         colourDomain.push(barData.length * multiplier);
-    //     }
-    // }
-    // var colours = d3.scale.linear()
-    //     .domain(colourDomain)
-    //     .range(colours);
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient('left');
 
+    var line = d3.svg.line()
+        .scale(y)
+        .orient('left')
 
-    // /**
-    //  * -------
-    //  * TOOLTIP
-    //  * -------
-    //  */
-    // var tooltip = d3.select('body').append('div')
-    //     .classed('tooltip',true)
+    /**
+     * Parse Date
+     */
+    var parseDate = d3.time.format("%d-%b-%y").parse;
 
-    // /**
-    //  * ------------
-    //  * DATA SORTING
-    //  * ------------
-    //  */
-    // if (sort) {
-    //     barData.sort(function compareNumbers(a,b){
-    //         return a - b;
-    //     })
-    // }
+    var svg = wrapper.append('svg')
+        .attr('width', wrapperWidth)
+        .attr('height', wrapperHeight)
+        .append('g')
+        .attr('transform','translate(' + margin.top + ',' + margin.left + ')')
+
     
-    // /**
-    //  * ---------------
-    //  * BUILD THE GRAPH
-    //  * ---------------
-    //  */
-    // var myChart = wrapper.append('svg')
-    //     .attr('height',height + margin.top + margin.bottom)
-    //     .attr('width',width + margin.left + margin.right)
-    //     .append('g')
-    //     .attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
-    //     .attr('width',width)
-    //     .attr('height',height)
-    //     .selectAll('rect').data(barData)
-    //     .enter().append('rect')
-    //         .style('fill',function(d,i){
-    //             return colours(i);
-    //         })
-    //         .attr('width',xScale.rangeBand())
-    //         .attr('height',function(d){
-    //             return 0;
-    //         })
-    //         .attr('y',function(d){
-    //             return height;
-    //         })
-    //         .attr('x',function(d,i){
-    //             return xScale(i);
-    //         })
-    //     .on('mouseover',function(d){
-
-    //         tooltip.style('opacity',.9)
-
-    //         tooltip.html(d)
-    //             .style('left', (d3.event.pageX - 40) + 'px')
-    //             .style('top', (d3.event.pageY) + 'px')
-
-    //         tempColour = this.style.fill;
-    //         d3.select(this)
-    //             .style('opacity',.5)
-    //             .style('fill','yellow')
-    //     })
-    //     .on('mouseout',function(d){
-
-    //         d3.select(this)
-    //             .style('opacity',1)
-    //             .style('fill',tempColour)
-    //     })
-
-    // /**
-    //  * -----------
-    //  * TRANSITIONS
-    //  * -----------
-    //  */
-    // myChart.transition()
-    //     .attr('height',function(d){
-    //         return yScale(d);
-    //     })
-    //     .attr('y',function(d){
-    //         return height - yScale(d);
-    //     })
-    //     .delay(function(d,i){
-    //         return i * 10;
-    //     })
-    //     .duration(800)
-    //     .ease('elastic')
-
-    // /**
-    //  * -------------
-    //  * AXES & GUIDES
-    //  *
-    //  * vAxis
-    //  * vGuide
-    //  * hAxis
-    //  * hGuide
-    //  * -------------
-    //  */
-
-    // var vAxis = d3.svg.axis()
-    //     .scale(vGuideScale)
-    //     .orient('left')
-    //     .ticks(10)
-
-    // var vGuide = wrapper.select('svg').append('g')
-    //     vAxis(vGuide)
-    //     vGuide.attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
-    //     vGuide.selectAll('path')
-    //         .style({fill: 'none',stroke: "#000"})
-    //     vGuide.selectAll('line')
-    //         .style({stroke: "#000"})
-
-    // var hAxis = d3.svg.axis()
-    //     .scale(xScale)
-    //     .orient('bottom')
-    //     .tickValues(xScale.domain().filter(function(d,i){
-    //         return !(i % (barData.length/5));
-    //     }))
-
-    // var hGuide = d3.select('#chartThree svg').append('g')
-    //     hAxis(hGuide)
-    //     hGuide.attr('transform','translate(' + margin.left + ', ' + (height + margin.top) + ')')
-    //     hGuide.selectAll('path')
-    //         .style({fill: 'none',stroke: "#000"})
-    //     hGuide.selectAll('line')
-    //         .style({stroke: "#000"})
 }
