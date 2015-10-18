@@ -37,7 +37,7 @@ var paletteArray = objectIntoArray(palette);
 // for (var colour in palette) {
 //     paletteArray.push(palette[colour]);
 // }
-console.log(coloursPreset.range());
+// console.log(coloursPreset.range());
 
 function objectIntoArray(object){
 	var newArray = [];
