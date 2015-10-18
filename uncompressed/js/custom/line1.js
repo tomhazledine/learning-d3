@@ -1,9 +1,16 @@
-var dateData = d3.csv('/datedata.csv',function(error,data) {
+d3.csv('/datedata.csv',function(error,data) {
     if (error) throw error;
 
-    for ( var i = 0; i < data.length; i++) {
-        console.log('date = ' + data[i].date + ', value = ' + data[i].close);
-    }
+    var lineOne = DrawLine({
+        'data': data,
+        'wrapper': d3.select('#chartSix'),
+        'margins': {
+            top: 30,
+            right: 30,
+            bottom: 40,
+            left: 50
+        },
+        'colours': colours.range(),
+        'sort': true
+    });
 });
-
-// console.log(dateData.length);

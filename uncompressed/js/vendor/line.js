@@ -10,6 +10,8 @@
  */
 var DrawLine = function drawLine(options){
 
+    console.log(options);
+
     /**
      * ---------------------------------
      * OPTIONS
