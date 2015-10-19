@@ -90,20 +90,20 @@ var pieData = [
 //         barData.push(data[key].value)
 //     }
 
-var barOne = DrawBar({
-    'data': barData,
-    'wrapper': d3.select('#chartThree'),
-    'margins': {
-        top: 30,
-        right: 30,
-        bottom: 40,
-        left: 50
-    },
-    'colours': colours.range(),
-    'sort': true
-});
+// var barOne = DrawBar({
+//     'data': barData,
+//     'wrapper': d3.select('#chartThree'),
+//     'margins': {
+//         top: 30,
+//         right: 30,
+//         bottom: 40,
+//         left: 50
+//     },
+//     'colours': colours.range(),
+//     'sort': true
+// });
 
-drawPieChart(pieData,colours);
+// drawPieChart(pieData,colours);
 
 
 // drawForceChart(nodes,palette);
