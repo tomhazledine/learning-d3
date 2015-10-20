@@ -230,7 +230,7 @@ var DrawBar = function drawBar(options){
             return !(i % (barData.length/5));
         }))
 
-    var hGuide = d3.select('#chartThree svg').append('g')
+    var hGuide = wrapper.select('svg').append('g')
         hAxis(hGuide)
         hGuide.attr('transform','translate(' + margin.left + ', ' + (height + margin.top) + ')')
         hGuide.selectAll('path')
