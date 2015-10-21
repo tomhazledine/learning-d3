@@ -1,10 +1,10 @@
 var wrapper = d3.select('#basicScatterGraph');
 
 var margin = {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10
+    top: 40,
+    right: 40,
+    bottom: 40,
+    left: 40
 };
 
 var wrapperWidth = parseInt(wrapper.style('width')),
@@ -16,10 +16,14 @@ var wrapperWidth = parseInt(wrapper.style('width')),
 
 var scatterSvg = wrapper.append('svg')
     .attr('width',wrapperWidth)
-    .attr('height',wrapperHeight);
+    .attr('height',wrapperHeight)
+    .append('g')
+    	.attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
+        .attr('width',width)
+        .attr('height',height);
 
-var xScale = d3.scale.linear().range([0, wrapperWidth]);
-var yScale = d3.scale.linear().range([wrapperHeight, 0]);
+var xScale = d3.scale.linear().range([0, width]);
+var yScale = d3.scale.linear().range([height, 0]);
 var rScale = d3.scale.linear().range([0, 3]);
 
 function renderScatter(data){
@@ -31,9 +35,10 @@ function renderScatter(data){
 
 	circles
 		.attr('cx',function (d){ return xScale(d.sepal_length); })
-		.attr('cy',function (d){ return yScale(d.petal_length); });
+		.attr('cy',function (d){ return yScale(d.petal_length); })
+		.attr('fill','rgba(111,111,0,.5)');
 
-	circle.exit().remove();
+	circles.exit().remove();
 }
 
 //---
