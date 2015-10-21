@@ -24,7 +24,7 @@ var scatterSvg = wrapper.append('svg')
 
 var xScale = d3.scale.linear().range([0, width]);
 var yScale = d3.scale.linear().range([height, 0]);
-var rScale = d3.scale.linear().range([0, 3]);
+var rScale = d3.scale.linear().range([0, 4]);
 
 function renderScatter(data){
 	xScale.domain(d3.extent(data, function (d){ return d.sepal_length; }));
