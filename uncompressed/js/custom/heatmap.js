@@ -1,61 +1,59 @@
-var wrapper = d3.select('#basicHeatMap');
+var heatMapWrapper = d3.select('#basicHeatMap');
 
-var margin = {
+var heatMap_margin = {
     top: 40,
     right: 40,
     bottom: 40,
     left: 40
 };
 
-var wrapperWidth = parseInt(wrapper.style('width')),
-	wrapperHeight = parseInt(wrapper.style('height')),
-	height = wrapperHeight - margin.top - margin.bottom,
-	width = wrapperWidth - margin.left - margin.right,
-    rMin = 1,
-    rMax = 20;
+var heatMapWrapperWidth = parseInt(heatMapWrapper.style('width')),
+	heatMapWrapperHeight = parseInt(heatMapWrapper.style('height')),
+	height = heatMapWrapperHeight - heatMap_margin.top - heatMap_margin.bottom,
+	width = heatMapWrapperWidth - heatMap_margin.left - heatMap_margin.right,
+    heatMap_rMin = 1,
+    heatMap_rMax = 10;
 
-var xColumn = 'longitude',
-    yColumn = 'latitude',
-    rColumn = 'population';
+var heatMap_xColumn = 'longitude',
+    heatMap_yColumn = 'latitude',
+    heatMap_rColumn = 'population';
 
 //---
 
-var heatMapSvg = wrapper.append('svg')
-    .attr('width',wrapperWidth)
-    .attr('height',wrapperHeight)
+var heatMapSvg = heatMapWrapper.append('svg')
+    .attr('width',heatMapWrapperWidth)
+    .attr('height',heatMapWrapperHeight)
     .append('g')
-    	.attr('transform','translate(' + margin.left + ', ' + margin.top + ')')
+    	.attr('transform','translate(' + heatMap_margin.left + ', ' + heatMap_margin.top + ')')
         .attr('width',width)
         .attr('height',height);
 
-var xScale = d3.scale.linear().range([0, width]),
-    yScale = d3.scale.linear().range([height, 0]),
-    rScale = d3.scale.linear().range([rMin, rMax]);
-    // colourScale = d3.scale.category10();
+var heatMap_xScale = d3.scale.linear().range([0, width]),
+    heatMap_yScale = d3.scale.linear().range([height, 0]),
+    heatMap_rScale = d3.scale.linear().range([heatMap_rMin, heatMap_rMax]);
+    // colouheatMap_rScale = d3.scale.category10();
 
 function renderHeatMap(data){
-	xScale.domain(d3.extent(data, function (d){ return d[xColumn]; }));
-	yScale.domain(d3.extent(data, function (d){ return d[yColumn]; }));
-    rScale.domain(d3.extent(data, function (d){ return d[rColumn]; }));
+	heatMap_xScale.domain(d3.extent(data, function (d){ return d[heatMap_xColumn]; }));
+	heatMap_yScale.domain(d3.extent(data, function (d){ return d[heatMap_yColumn]; }));
+    heatMap_rScale.domain(d3.extent(data, function (d){ return d[heatMap_rColumn]; }));
 
-	var circles = heatMapSvg.selectAll('circle').data(data);
-	circles.enter().append('circle');
+	var heatMap_circles = heatMapSvg.selectAll('circle').data(data);
+	heatMap_circles.enter().append('circle');
 
-	circles
-		.attr('cx',function (d){ return xScale(d[xColumn]); })
-		.attr('cy',function (d){ return yScale(d[yColumn]); })
-        .attr('r',function (d){ return rScale(d[rColumn]); })
-		// .attr('fill', function(d){ return colourScale(d[colourColumn]); })
+	heatMap_circles
+		.attr('cx',function (d){ return heatMap_xScale(d[heatMap_xColumn]); })
+		.attr('cy',function (d){ return heatMap_yScale(d[heatMap_yColumn]); })
+        .attr('r',function (d){ return heatMap_rScale(d[heatMap_rColumn]); })
+        .attr('fill','white')
         .attr('opacity',.4);
-        // .attr('stroke', function(d){ return colourScale(d[colourColumn]); })
-        // .attr('stroke-width','2px');
 
-	circles.exit().remove();
+	heatMap_circles.exit().remove();
 }
 
 //---
 
-function type(d){
+function mapDataType(d){
     d.longitude = +d.longitude;
     d.population = +d.population;
     d.latitude = +d.latitude;
@@ -63,4 +61,4 @@ function type(d){
     return d;
 }
 
-d3.csv("/cities.csv", type, renderHeatMap);
+d3.csv("/cities.csv", mapDataType, renderHeatMap);
