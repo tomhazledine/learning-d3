@@ -16,7 +16,8 @@ var wrapperWidth = parseInt(wrapper.style('width')),
 
 var xColumn = 'sepal_length',
     yColumn = 'petal_length',
-    rColumn = 'sepal_width';
+    rColumn = 'sepal_width',
+    colourColumn = 'species';
 
 //---
 
@@ -28,9 +29,10 @@ var scatterSvg = wrapper.append('svg')
         .attr('width',width)
         .attr('height',height);
 
-var xScale = d3.scale.linear().range([0, width]);
-var yScale = d3.scale.linear().range([height, 0]);
-var rScale = d3.scale.linear().range([rMin, rMax]);
+var xScale = d3.scale.linear().range([0, width]),
+    yScale = d3.scale.linear().range([height, 0]),
+    rScale = d3.scale.linear().range([rMin, rMax]),
+    colourScale = d3.scale.category10();
 
 function renderScatter(data){
 	xScale.domain(d3.extent(data, function (d){ return d[xColumn]; }));
@@ -44,7 +46,10 @@ function renderScatter(data){
 		.attr('cx',function (d){ return xScale(d[xColumn]); })
 		.attr('cy',function (d){ return yScale(d[yColumn]); })
         .attr('r',function (d){ return rScale(d[rColumn]); })
-		.attr('fill','rgba(111,111,0,.5)');
+		.attr('fill', function(d){ return colourScale(d[colourColumn]); })
+        .attr('opacity',.4);
+        // .attr('stroke', function(d){ return colourScale(d[colourColumn]); })
+        // .attr('stroke-width','2px');
 
 	circles.exit().remove();
 }
