@@ -24,18 +24,20 @@ var scatterSvg = wrapper.append('svg')
 
 var xScale = d3.scale.linear().range([0, width]);
 var yScale = d3.scale.linear().range([height, 0]);
-var rScale = d3.scale.linear().range([0, 4]);
+var rScale = d3.scale.linear().range([0, 20]);
 
 function renderScatter(data){
 	xScale.domain(d3.extent(data, function (d){ return d.sepal_length; }));
 	yScale.domain(d3.extent(data, function (d){ return d.petal_length; }));
+    rScale.domain(d3.extent(data, function (d){ return d.sepal_width; }));
 
 	var circles = scatterSvg.selectAll('circle').data(data);
-	circles.enter().append('circle').attr('r',function (d){ return rScale(d.sepal_width); });
+	circles.enter().append('circle');
 
 	circles
 		.attr('cx',function (d){ return xScale(d.sepal_length); })
 		.attr('cy',function (d){ return yScale(d.petal_length); })
+        .attr('r',function (d){ return rScale(d.sepal_width); })
 		.attr('fill','rgba(111,111,0,.5)');
 
 	circles.exit().remove();
