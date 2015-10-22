@@ -10,7 +10,13 @@ var margin = {
 var wrapperWidth = parseInt(wrapper.style('width')),
 	wrapperHeight = parseInt(wrapper.style('height')),
 	height = wrapperHeight - margin.top - margin.bottom,
-	width = wrapperWidth - margin.left - margin.right
+	width = wrapperWidth - margin.left - margin.right,
+    rMin = 1,
+    rMax = 20;
+
+var xColumn = 'sepal_length',
+    yColumn = 'petal_length',
+    rColumn = 'sepal_width';
 
 //---
 
@@ -24,20 +30,20 @@ var scatterSvg = wrapper.append('svg')
 
 var xScale = d3.scale.linear().range([0, width]);
 var yScale = d3.scale.linear().range([height, 0]);
-var rScale = d3.scale.linear().range([0, 20]);
+var rScale = d3.scale.linear().range([rMin, rMax]);
 
 function renderScatter(data){
-	xScale.domain(d3.extent(data, function (d){ return d.sepal_length; }));
-	yScale.domain(d3.extent(data, function (d){ return d.petal_length; }));
-    rScale.domain(d3.extent(data, function (d){ return d.sepal_width; }));
+	xScale.domain(d3.extent(data, function (d){ return d[xColumn]; }));
+	yScale.domain(d3.extent(data, function (d){ return d[yColumn]; }));
+    rScale.domain(d3.extent(data, function (d){ return d[rColumn]; }));
 
 	var circles = scatterSvg.selectAll('circle').data(data);
 	circles.enter().append('circle');
 
 	circles
-		.attr('cx',function (d){ return xScale(d.sepal_length); })
-		.attr('cy',function (d){ return yScale(d.petal_length); })
-        .attr('r',function (d){ return rScale(d.sepal_width); })
+		.attr('cx',function (d){ return xScale(d[xColumn]); })
+		.attr('cy',function (d){ return yScale(d[yColumn]); })
+        .attr('r',function (d){ return rScale(d[rColumn]); })
 		.attr('fill','rgba(111,111,0,.5)');
 
 	circles.exit().remove();
