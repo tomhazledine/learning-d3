@@ -21,29 +21,29 @@ var basicLine_xColumn = 'timestamp',
 
 var basicLineSvg = basicLineWrapper.append('svg')
     .attr('width',basicLineWrapperWidth)
-    .attr('height',basicLineWrapperHeight)
-    .append('g')
+    .attr('height',basicLineWrapperHeight);
+var group = basicLineSvg.append('g')
         .attr('transform','translate(' + basicLine_margin.left + ', ' + basicLine_margin.top + ')')
         .attr('width',width)
         .attr('height',height);
+var path = group.append('path');
 
 var basicLine_xScale = d3.scale.linear().range([0, width]),
     basicLine_yScale = d3.scale.linear().range([height, 0]);
-    // coloubasicLine_rScale = d3.scale.category10();
+
+var line = d3.svg.line()
+    .x(function(d){ return basicLine_xScale(d[basicLine_xColumn]); })
+    .y(function(d){ return basicLine_yScale(d[basicLine_yColumn]); });
 
 function renderBasicLine(data){
     basicLine_xScale.domain(d3.extent(data, function (d){ return d[basicLine_xColumn]; }));
     basicLine_yScale.domain(d3.extent(data, function (d){ return d[basicLine_yColumn]; }));
 
-    var basicLine_circles = basicLineSvg.selectAll('circle').data(data);
-    basicLine_circles.enter().append('circle');
-
-    basicLine_circles
-        .attr('cx',function (d){ return basicLine_xScale(d[basicLine_xColumn]); })
-        .attr('cy',function (d){ return basicLine_yScale(d[basicLine_yColumn]); })
-        .attr('r', rMin )
-
-    basicLine_circles.exit().remove();
+    path
+        .attr('d',line(data))
+        .attr('fill','none')
+        .attr('stroke','black')
+        .attr('stroke-width','1px');
 }
 
 //---
