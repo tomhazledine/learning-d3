@@ -154,6 +154,9 @@ var DrawScatter = function drawScatter(options){
         .classed('xAxis',true);
     var yAxisG = axesGroup.append('g')
         .classed('yAxis',true);
+    
+    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
+    var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
     /**
      * -------------------------
@@ -188,6 +191,13 @@ var DrawScatter = function drawScatter(options){
          */
         var xMax = d3.max(data, function (d){ return d[settings.xColumn]; }),
             yMax = d3.max(data, function (d){ return d[settings.yColumn]; });
+
+        /**
+         * AXES
+         */
+        xAxisG.call(xAxis);
+        yAxisG.call(yAxis);
+
     
         /**
          * SETUP CIRCLES
