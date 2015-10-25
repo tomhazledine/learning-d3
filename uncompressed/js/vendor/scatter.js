@@ -195,8 +195,7 @@ var DrawScatter = function drawScatter(options){
          */
         var xScaleExtent = d3.extent(data, function (d){ return d[settings.xColumn]; });
         var yScaleExtent = d3.extent(data, function (d){ return d[settings.yColumn]; });
-        console.log(xScaleExtent);
-        console.log(yScaleExtent);
+        
         xScale.domain([(xScaleExtent[0] - .1),xScaleExtent[1]]);
         yScale.domain([0,yScaleExtent[1]]);
         if (settings.hasRadii) {
