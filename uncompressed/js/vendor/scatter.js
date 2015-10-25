@@ -151,9 +151,9 @@ var DrawScatter = function drawScatter(options){
         .classed('axesWrapper',true);
     var xAxisG = axesGroup.append('g')
         .attr('transform', 'translate(0,' + height + ')')
-        .classed('xAxis',true);
+        .classed('axis xAxis',true);
     var yAxisG = axesGroup.append('g')
-        .classed('yAxis',true);
+        .classed('axis yAxis',true);
     
     var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
     var yAxis = d3.svg.axis().scale(yScale).orient('left');
