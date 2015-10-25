@@ -61,5 +61,35 @@ var DrawScatter = function drawScatter(options){
         if ( options.colours      !== undefined ) { settings.colours      = options.colours;      }
     }
 
-    console.log(settings);
+    /**
+     * --------------------
+     * PARSE THE DATA
+     *
+     * Make sure columns
+     * used return integers
+     * and not strings.
+     * --------------------
+     */
+    function _type(data){
+        data[xColumn] = +data[xColumn];
+        data[yColumn] = +data[yColumn];
+        data[rColumn] = +data[rColumn];
+        return data;
+    }
+
+    /**
+     * PUT IT ALL TOGETHER
+     */
+    function _renderChart(data){
+        console.log(data);
+    }
+
+    /**
+     * INITIALISE THE CHART
+     */
+    d3.csv(settings.dataSrc, _type, _renderChart);
+    // console.log(settings);
+    
+
+
 }
