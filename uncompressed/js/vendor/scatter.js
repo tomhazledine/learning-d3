@@ -139,6 +139,23 @@ var DrawScatter = function drawScatter(options){
         .classed('chartWrapper',true);
 
     /**
+     * ---------------
+     * AXES
+     *
+     * Draw the x axis
+     * & y axis.
+     * ---------------
+     */
+    var axesGroup = scatterSvg.append('g')
+        .attr('transform', 'translate(' + settings.margin.left + ',' + settings.margin.top + ')')
+        .classed('axesWrapper',true);
+    var xAxisG = axesGroup.append('g')
+        .attr('transform', 'translate(0,' + height + ')')
+        .classed('xAxis',true);
+    var yAxisG = axesGroup.append('g')
+        .classed('yAxis',true);
+
+    /**
      * -------------------------
      * PUT IT ALL TOGETHER
      *
@@ -171,23 +188,6 @@ var DrawScatter = function drawScatter(options){
          */
         var xMax = d3.max(data, function (d){ return d[settings.xColumn]; }),
             yMax = d3.max(data, function (d){ return d[settings.yColumn]; });
-
-        /**
-         * ---------------
-         * AXES
-         *
-         * Draw the x axis
-         * & y axis.
-         * ---------------
-         */
-        var axesGroup = scatterSvg.append('g')
-            .attr('transform', 'translate(' + settings.margin.left + ',' + settings.margin.top + ')')
-            .classed('axesWrapper',true);
-        var xAxisG = axesGroup.append('g')
-            .attr('transform', 'translate(0,' + height + ')')
-            .classed('xAxis',true);
-        var yAxisG = axesGroup.append('g')
-            .classed('yAxis',true);
     
         /**
          * SETUP CIRCLES
