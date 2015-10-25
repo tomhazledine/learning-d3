@@ -31,7 +31,9 @@ var DrawScatter = function drawScatter(options){
      * ---------------------------------
      */
     
-    /* Fallbacks */
+    /**
+     * FALLBACKS
+     */
     var settings = {
         dataSrc      : '/iris.csv',
         wrapper      : d3.select('body'),
@@ -47,7 +49,9 @@ var DrawScatter = function drawScatter(options){
         colours      : []
     };
 
-    /* Set Options (if declared) */
+    /**
+     * SET OPTIONS (if declared)
+     */
     if (options !== undefined) {
         if ( options.dataSrc      !== undefined ) { settings.dataSrc      = options.dataSrc;      }
         if ( options.wrapper      !== undefined ) { settings.wrapper      = options.wrapper;      }
@@ -126,11 +130,13 @@ var DrawScatter = function drawScatter(options){
      */
     var scatterSvg = settings.wrapper.append('svg')
         .attr('width',wrapperWidth)
-        .attr('height',wrapperHeight)
-        .append('g')
-            .attr('transform','translate(' + settings.margin.left + ', ' + settings.margin.top + ')')
-            .attr('width',width)
-            .attr('height',height);
+        .attr('height',wrapperHeight);
+
+    var svgInner = scatterSvg.append('g')
+        .attr('transform','translate(' + settings.margin.left + ', ' + settings.margin.top + ')')
+        .attr('width',width)
+        .attr('height',height)
+        .classed('chartWrapper',true);
 
     /**
      * -------------------------
@@ -142,13 +148,55 @@ var DrawScatter = function drawScatter(options){
      * -------------------------
      */
     function _renderChart(data){
+
+        /**
+         * -------
+         * DOMAINS
+         * -------
+         */
         xScale.domain(d3.extent(data, function (d){ return d[settings.xColumn]; }));
         yScale.domain(d3.extent(data, function (d){ return d[settings.yColumn]; }));
         if (settings.hasRadii) {
             rScale.domain(d3.extent(data, function (d){ return d[settings.rColumn]; }));
         }
 
-        var circles = scatterSvg.selectAll('circle').data(data);
+        /**
+         * -----------------
+         * DATA MIN MAX
+         * 
+         * Get the min & max
+         * values for x & y
+         * columns.
+         * -----------------
+         */
+        var xMax = d3.max(data, function (d){ return d[settings.xColumn]; }),
+            yMax = d3.max(data, function (d){ return d[settings.yColumn]; });
+
+        /**
+         * ---------------
+         * AXES
+         *
+         * Draw the x axis
+         * & y axis.
+         * ---------------
+         */
+        var axesGroup = scatterSvg.append('g')
+            .attr('transform', 'translate(' + settings.margin.left + ',' + settings.margin.top + ')')
+            .classed('axesWrapper',true);
+        var xAxisG = axesGroup.append('g')
+            .attr('transform', 'translate(0,' + height + ')')
+            .classed('xAxis',true);
+        var yAxisG = axesGroup.append('g')
+            .classed('yAxis',true);
+    
+        /**
+         * SETUP CIRCLES
+         */
+        var circles = svgInner.selectAll('circle').data(data);
+
+        /**
+         * APPLY DATA TO CIRCLES
+         */
         circles.enter().append('circle');
 
         circles
@@ -171,14 +219,19 @@ var DrawScatter = function drawScatter(options){
             .attr('opacity',.4);
 
         circles.exit().remove();
-        // console.log(data);
     }
 
     /**
+     * ----------------------
      * INITIALISE THE CHART
+     *
+     * Get the data, parse it
+     * using _type, then draw
+     * the chart using
+     * _renderChart.
+     * ----------------------
      */
     d3.csv(settings.dataSrc, _type, _renderChart);
-    // console.log(settings);
     
 
 
