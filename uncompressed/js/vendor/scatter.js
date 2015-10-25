@@ -159,6 +159,25 @@ var DrawScatter = function drawScatter(options){
     var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
     /**
+     * Axes Labels
+     */
+
+    var xLabelOffset = 35;
+    var xLabelText = settings.xColumn;
+    var yLabelOffset = -40;
+    var yLabelText = settings.yColumn;
+
+    var xAxisLabel = xAxisG.append('text')
+        .classed('axisLabel',true)
+        .attr('transform','translate(' + (width / 2) + ',' + xLabelOffset + ')')    
+        .text(xLabelText);
+
+    var yAxisLabel = yAxisG.append('text')
+        .classed('axisLabel',true)
+        .attr('transform','translate(' + yLabelOffset + ',' + (height / 2) + ') rotate(-90)')    
+        .text(yLabelText);
+
+    /**
      * -------------------------
      * PUT IT ALL TOGETHER
      *
