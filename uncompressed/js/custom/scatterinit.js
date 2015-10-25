@@ -6,7 +6,7 @@ var testScatter = DrawScatter({
     yColumn      : 'petal_length',
     rColumn      : 'sepal_width',
     colourColumn : 'species',
-    fixedRadius  : false,
+    hasRadii     : true,
     radii        : { rMin : 1, rMax : 20 },
     hasColours   : true,
     colours      : d3.scale.category10()
