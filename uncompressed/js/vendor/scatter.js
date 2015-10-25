@@ -40,7 +40,7 @@ var DrawScatter = function drawScatter(options){
         yColumn      : 'yColumn',
         rColumn      : 'rColumn',
         colourColumn : 'colourColumn',
-        fixedRadius  : false,
+        fixedRadius  : true,
         radii        : { rMin : 1, rMax : 20 },
         hasColours   : false,
         colours      : []
@@ -55,7 +55,7 @@ var DrawScatter = function drawScatter(options){
         if ( options.yColumn      !== undefined ) { settings.yColumn      = options.yColumn;      }
         if ( options.rColumn      !== undefined ) { settings.rColumn      = options.rColumn;      }
         if ( options.colourColumn !== undefined ) { settings.colourColumn = options.colourColumn; }
-        if ( options.fixedRadius  === true      ) { settings.fixedRadius  = true;                 }
+        if ( options.fixedRadius  === false     ) { settings.fixedRadius  = false;                }
         if ( options.radii        !== undefined ) { settings.radii        = options.radii;        }
         if ( options.hasColours   === true      ) { settings.hasColours   = true;                 }
         if ( options.colours      !== undefined ) { settings.colours      = options.colours;      }
