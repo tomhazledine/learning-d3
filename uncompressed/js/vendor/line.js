@@ -62,7 +62,9 @@ var DrawLine = function drawLine(options){
      */
     function _type(data){
         // if (settings.hasTimeX) {
-            data[settings.xColumn] = new Date(data[settings.xColumn]);
+        console.log(data[settings.xColumn]);
+        data[settings.xColumn] = new Date(data[settings.xColumn]);
+        console.log(data[settings.xColumn]);
         // } else {
         //     data[settings.xColumn] = +data[settings.xColumn];
         // }
@@ -142,7 +144,9 @@ var DrawLine = function drawLine(options){
     var yAxisG = axesGroup.append('g')
         .classed('axis yAxis',true);
     
-    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
+    var xAxis = d3.svg.axis().scale(xScale).orient('bottom')
+        .ticks(4)
+        .tickFormat(d3.format('s'));
     var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
     /**
@@ -183,7 +187,7 @@ var DrawLine = function drawLine(options){
          * DOMAINS
          * -------
          */
-        console.log(data[settings.xColumn]);
+        // console.log(data[settings.xColumn]);
         var xScaleExtent = d3.extent(data, function (d){ return d[settings.xColumn]; });
         var yScaleExtent = d3.extent(data, function (d){ return d[settings.yColumn]; });
         

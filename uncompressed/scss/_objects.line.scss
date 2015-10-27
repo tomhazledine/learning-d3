@@ -39,3 +39,10 @@
     position:relative;
   }
 }
+
+#basicLineGraph{
+  .xAxis .tick text{
+    font-size:.8em;
+    // transform:rotate(-90deg) translate(0, -1em);
+  }
+}
