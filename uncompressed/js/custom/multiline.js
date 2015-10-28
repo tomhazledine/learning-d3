@@ -1,6 +1,6 @@
 var multiline = DrawLine({
-    dataSrc      : '/patrick.csv',
-    wrapper      : d3.select('#patrickGraph'),
+    dataSrc      : '/test_multi.csv',
+    wrapper      : d3.select('#multipleLines'),
     margin       : { top: 20, right: 20, bottom: 50, left: 50 },
     xColumn      : ['year'],
     yColumn      : ['range','range2']
