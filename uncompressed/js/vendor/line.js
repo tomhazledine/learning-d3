@@ -124,11 +124,10 @@ var DrawLine = function drawLine(options){
 
     var paths = [];
     for (i = 0; i < settings.yColumn.length; i++) {
-        var pathVar = svgInner.append('path');
-        paths.push(pathVar);
+        paths[i] = svgInner.append('path');
     }
     console.log(paths);
-    return;
+    // return;
 
     // var path = svgInner.append('path');
     // var path2 = svgInner.append('path');
@@ -249,29 +248,47 @@ var DrawLine = function drawLine(options){
         /**
          * SETUP LINE
          */
-        var line = d3.svg.line()
-            .x(function(d){ return xScale(d[settings.xColumn]); })
-            .y(function(d){ return yScale(d[settings.yColumn]); })
-            .interpolate('basis');
+        
+        var lines = [];
+        
 
-        var line2 = d3.svg.line()
-            .x(function(d){ return xScale(d[settings.xColumn]); })
-            .y(function(d){ return yScale(d[settings.yColumn2]); })
-            .interpolate('linear');
+        // var line = d3.svg.line()
+        //     .x(function(d){ return xScale(d[settings.xColumn]); })
+        //     .y(function(d){ return yScale(d[settings.yColumn]); })
+        //     .interpolate('basis');
 
-        path
-            .attr('d',line(data))
-            .attr('fill','none')
-            .classed('y1',true)
-            // .attr('stroke','black')
-            .attr('stroke-width','1px');
+        // var line2 = d3.svg.line()
+        //     .x(function(d){ return xScale(d[settings.xColumn]); })
+        //     .y(function(d){ return yScale(d[settings.yColumn2]); })
+        //     .interpolate('linear');
 
-        path2
-            .attr('d',line2(data))
-            .attr('fill','none')
-            // .attr('stroke','black')
-            .classed('y2',true)
-            .attr('stroke-width','1px');
+        for (i = 0; i < settings.yColumn.length; i++) {
+            lines[i] = d3.svg.line()
+                .x(function(d){ return xScale(d[settings.xColumn[0]]); })
+                .y(function(d){ return yScale(d[settings.yColumn[i]]); })
+                .interpolate('basis');
+
+            paths[i]
+                .attr('d',lines[i](data))
+                .attr('fill','none')
+                .classed('y1',true)
+                // .attr('stroke','black')
+                .attr('stroke-width','1px');
+        }
+
+        // path
+        //     .attr('d',line(data))
+        //     .attr('fill','none')
+        //     .classed('y1',true)
+        //     // .attr('stroke','black')
+        //     .attr('stroke-width','1px');
+
+        // path2
+        //     .attr('d',line2(data))
+        //     .attr('fill','none')
+        //     // .attr('stroke','black')
+        //     .classed('y2',true)
+        //     .attr('stroke-width','1px');
 
 
     }
