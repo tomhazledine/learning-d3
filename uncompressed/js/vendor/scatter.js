@@ -76,10 +76,12 @@ var DrawScatter = function drawScatter(options){
      * and not strings.
      * --------------------
      */
+    
     function _type(data){
         data[settings.xColumn] = +data[settings.xColumn];
         data[settings.yColumn] = +data[settings.yColumn];
         data[settings.rColumn] = +data[settings.rColumn];
+        // console.log(data[settings.xColumn]);
         return data;
     }
 

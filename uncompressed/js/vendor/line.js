@@ -34,6 +34,7 @@ var DrawLine = function drawLine(options){
         margin       : { top: 20, right: 20, bottom: 20, left: 20 },
         xColumn      : 'xColumn',
         yColumn      : 'yColumn',
+        yColumn2     : 'yColumn2',
         hasTimeX     : false,
         hasTimeY     : false
     };
@@ -47,6 +48,7 @@ var DrawLine = function drawLine(options){
         if ( options.margin       !== undefined ) { settings.margin       = options.margin;       }
         if ( options.xColumn      !== undefined ) { settings.xColumn      = options.xColumn;      }
         if ( options.yColumn      !== undefined ) { settings.yColumn      = options.yColumn;      }
+        if ( options.yColumn2     !== undefined ) { settings.yColumn2     = options.yColumn2;     }
         if ( options.hasTimeX     === true      ) { settings.hasTimeX     = true;                 }
         if ( options.hasTimeY     === true      ) { settings.hasTimeY     = true;                 }
     }
@@ -62,9 +64,10 @@ var DrawLine = function drawLine(options){
      */
     function _type(data){
         // if (settings.hasTimeX) {
-        console.log(data[settings.xColumn]);
+        // console.log(data[settings.xColumn]);
         data[settings.xColumn] = new Date(data[settings.xColumn]);
-        console.log(data[settings.xColumn]);
+
+        // console.log(data[settings.xColumn]);
         // } else {
         //     data[settings.xColumn] = +data[settings.xColumn];
         // }
@@ -126,6 +129,7 @@ var DrawLine = function drawLine(options){
         .classed('chartWrapper',true);
 
     var path = svgInner.append('path');
+    var path2 = svgInner.append('path');
 
     /**
      * ---------------
@@ -145,8 +149,8 @@ var DrawLine = function drawLine(options){
         .classed('axis yAxis',true);
     
     var xAxis = d3.svg.axis().scale(xScale).orient('bottom')
-        .ticks(4)
-        .tickFormat(d3.format('s'));
+        .ticks(4);
+        // .tickFormat(d3.time.format('%Y%m%d'));
     var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
     /**
@@ -189,7 +193,7 @@ var DrawLine = function drawLine(options){
          */
         // console.log(data[settings.xColumn]);
         var xScaleExtent = d3.extent(data, function (d){ return d[settings.xColumn]; });
-        var yScaleExtent = d3.extent(data, function (d){ return d[settings.yColumn]; });
+        var yScaleExtent = d3.extent(data, function (d){ return d[settings.yColumn2]; });
         
         xScale.domain([(xScaleExtent[0] - .1),xScaleExtent[1]]);
         yScale.domain([0,yScaleExtent[1]]);
@@ -203,8 +207,8 @@ var DrawLine = function drawLine(options){
          * columns.
          * -----------------
          */
-        var xMax = d3.max(data, function (d){ return d[settings.xColumn]; }),
-            yMax = d3.max(data, function (d){ return d[settings.yColumn]; });
+        // var xMax = d3.max(data, function (d){ return d[settings.xColumn]; }),
+        //     yMax = d3.max(data, function (d){ return d[settings.yColumn]; });
 
         /**
          * AXES
@@ -218,13 +222,29 @@ var DrawLine = function drawLine(options){
          */
         var line = d3.svg.line()
             .x(function(d){ return xScale(d[settings.xColumn]); })
-            .y(function(d){ return yScale(d[settings.yColumn]); });
+            .y(function(d){ return yScale(d[settings.yColumn]); })
+            .interpolate('basis');
+
+        var line2 = d3.svg.line()
+            .x(function(d){ return xScale(d[settings.xColumn]); })
+            .y(function(d){ return yScale(d[settings.yColumn2]); })
+            .interpolate('linear');
 
         path
             .attr('d',line(data))
             .attr('fill','none')
-            .attr('stroke','black')
+            .classed('y1',true)
+            // .attr('stroke','black')
             .attr('stroke-width','1px');
+
+        path2
+            .attr('d',line2(data))
+            .attr('fill','none')
+            // .attr('stroke','black')
+            .classed('y2',true)
+            .attr('stroke-width','1px');
+
+
     }
 
     /**
