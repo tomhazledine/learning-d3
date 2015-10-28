@@ -32,9 +32,8 @@ var DrawLine = function drawLine(options){
         dataSrc      : '/week_temp.csv',
         wrapper      : d3.select('body'),
         margin       : { top: 20, right: 20, bottom: 20, left: 20 },
-        xColumn      : 'xColumn',
-        yColumn      : 'yColumn',
-        yColumn2     : 'yColumn2',
+        xColumn      : ['xColumn'],
+        yColumn      : ['yColumn'],
         hasTimeX     : false,
         hasTimeY     : false
     };
@@ -48,7 +47,6 @@ var DrawLine = function drawLine(options){
         if ( options.margin       !== undefined ) { settings.margin       = options.margin;       }
         if ( options.xColumn      !== undefined ) { settings.xColumn      = options.xColumn;      }
         if ( options.yColumn      !== undefined ) { settings.yColumn      = options.yColumn;      }
-        if ( options.yColumn2     !== undefined ) { settings.yColumn2     = options.yColumn2;     }
         if ( options.hasTimeX     === true      ) { settings.hasTimeX     = true;                 }
         if ( options.hasTimeY     === true      ) { settings.hasTimeY     = true;                 }
     }
@@ -62,20 +60,16 @@ var DrawLine = function drawLine(options){
      * and not strings.
      * --------------------
      */
+    // console.log(settings.yColumn.length);
+    // return;
+    // var columnCount = settings.xColumn;
     function _type(data){
-        // if (settings.hasTimeX) {
-        // console.log(data[settings.xColumn]);
-        data[settings.xColumn] = new Date(data[settings.xColumn]);
-
-        // console.log(data[settings.xColumn]);
-        // } else {
-        //     data[settings.xColumn] = +data[settings.xColumn];
-        // }
-        // if (hasTimeY) {
-        //     data[settings.yColumn] = new Date(data[settings.yColumn]);
-        // } else {
-            data[settings.yColumn] = +data[settings.yColumn];
-        // }
+        for (i = 0; i < settings.xColumn.length; i++) {
+            data[settings.xColumn[i]] = +data[settings.xColumn[i]]; // new Date(data[settings.xColumn[i]]);    
+        }
+        for (i = 0; i < settings.yColumn.length; i++) {
+            data[settings.yColumn[i]] = +data[settings.yColumn[i]];
+        }
         return data;
     }
 
@@ -128,8 +122,16 @@ var DrawLine = function drawLine(options){
         .attr('height',height)
         .classed('chartWrapper',true);
 
-    var path = svgInner.append('path');
-    var path2 = svgInner.append('path');
+    var paths = [];
+    for (i = 0; i < settings.yColumn.length; i++) {
+        var pathVar = svgInner.append('path');
+        paths.push(pathVar);
+    }
+    console.log(paths);
+    return;
+
+    // var path = svgInner.append('path');
+    // var path2 = svgInner.append('path');
 
     /**
      * ---------------
@@ -185,19 +187,7 @@ var DrawLine = function drawLine(options){
 
         // console.log(data);
         // return;
-
-        /**
-         * -------
-         * DOMAINS
-         * -------
-         */
-        // console.log(data[settings.xColumn]);
-        var xScaleExtent = d3.extent(data, function (d){ return d[settings.xColumn]; });
-        var yScaleExtent = d3.extent(data, function (d){ return d[settings.yColumn2]; });
         
-        xScale.domain([(xScaleExtent[0] - .1),xScaleExtent[1]]);
-        yScale.domain([0,yScaleExtent[1]]);
-
         /**
          * -----------------
          * DATA MIN MAX
@@ -207,8 +197,47 @@ var DrawLine = function drawLine(options){
          * columns.
          * -----------------
          */
-        // var xMax = d3.max(data, function (d){ return d[settings.xColumn]; }),
-        //     yMax = d3.max(data, function (d){ return d[settings.yColumn]; });
+        
+        // Get the Maximum values
+        var xColumnMaximums = [];
+        var yColumnMaximums = [];
+        for (i = 0; i < settings.xColumn.length; i++) {
+            xColumnMaximums.push(d3.max(data, function (d){ return d[settings.xColumn[i]]; }));
+        }
+        for (i = 0; i < settings.yColumn.length; i++) {
+            yColumnMaximums.push(d3.max(data, function (d){ return d[settings.yColumn[i]]; }));
+        }
+        var xMax = Math.max.apply(null,xColumnMaximums),
+            yMax = Math.max.apply(null,yColumnMaximums);
+        console.log('xMax = ' + xMax);
+        console.log('yMax = ' + yMax);
+
+        // Get the Minimum values
+        var xColumnMinimums = [];
+        var yColumnMinimums = [];
+        for (i = 0; i < settings.xColumn.length; i++) {
+            xColumnMinimums.push(d3.min(data, function (d){ return d[settings.xColumn[i]]; }));
+        }
+        for (i = 0; i < settings.yColumn.length; i++) {
+            yColumnMinimums.push(d3.min(data, function (d){ return d[settings.yColumn[i]]; }));
+        }
+        var xMin = Math.min.apply(null,xColumnMinimums),
+            yMin = Math.min.apply(null,yColumnMinimums);
+        console.log('xMin = ' + xMin);
+        console.log('yMin = ' + yMin);
+        
+        // return;
+
+        /**
+         * -------
+         * DOMAINS
+         * -------
+         */
+        var xScaleExtent = d3.extent(data, function (d){ return d[settings.xColumn]; });
+        var yScaleExtent = d3.extent(data, function (d){ return d[settings.yColumn2]; });
+        
+        xScale.domain([xMin,xMax]);
+        yScale.domain([yMin,yMax]);
 
         /**
          * AXES
