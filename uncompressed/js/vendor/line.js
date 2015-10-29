@@ -126,7 +126,7 @@ var DrawLine = function drawLine(options){
     for (i = 0; i < settings.yColumn.length; i++) {
         paths[i] = svgInner.append('path');
     }
-    console.log(paths);
+    // console.log(paths);
     // return;
 
     // var path = svgInner.append('path');
