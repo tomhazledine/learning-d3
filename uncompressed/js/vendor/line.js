@@ -65,7 +65,11 @@ var DrawLine = function drawLine(options){
     // var columnCount = settings.xColumn;
     function _type(data){
         for (i = 0; i < settings.xColumn.length; i++) {
-            data[settings.xColumn[i]] = +data[settings.xColumn[i]]; // new Date(data[settings.xColumn[i]]);    
+            if (settings.hasTimeX) {
+                data[settings.xColumn[i]] = new Date(data[settings.xColumn[i]]);        
+            } else {
+                data[settings.xColumn[i]] = +data[settings.xColumn[i]];
+            }
         }
         for (i = 0; i < settings.yColumn.length; i++) {
             data[settings.yColumn[i]] = +data[settings.yColumn[i]];

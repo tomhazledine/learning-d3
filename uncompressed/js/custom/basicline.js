@@ -3,5 +3,6 @@ var testScatter = DrawLine({
     wrapper  : d3.select('#basicLineGraph'),
     margin   : { top: 20, right: 20, bottom: 50, left: 50 },
     xColumn  : ['timestamp'],
-    yColumn  : ['temperature']
+    yColumn  : ['temperature'],
+    hasTimeX : true
 });
