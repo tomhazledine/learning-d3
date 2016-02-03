@@ -72,7 +72,11 @@ var DrawLine = function drawLine(options){
             }
         }
         for (i = 0; i < settings.yColumn.length; i++) {
-            data[settings.yColumn[i]] = +data[settings.yColumn[i]];
+            if (settings.hasTimeY) {
+                data[settings.yColumn[i]] = new Date(data[settings.yColumn[i]]);
+            } else {
+                data[settings.yColumn[i]] = +data[settings.yColumn[i]];
+            }
         }
         return data;
     }
