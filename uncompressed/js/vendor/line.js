@@ -66,7 +66,11 @@ var DrawLine = function drawLine(options){
     function _type(data){
         for (i = 0; i < settings.xColumn.length; i++) {
             if (settings.hasTimeX) {
-                data[settings.xColumn[i]] = new Date(data[settings.xColumn[i]]);        
+                console.log(data[settings.xColumn[i]]);
+                data[settings.xColumn[i]] = (new Date(data[settings.xColumn[i]]).getTime()) / 1000;
+                console.log(data[settings.xColumn[i]]);
+                // data[settings.xColumn[i]] = (data[settings.xColumn[i]].getTime()) / 1000;
+                // console.log(data[settings.xColumn[i]]);
             } else {
                 data[settings.xColumn[i]] = +data[settings.xColumn[i]];
             }
@@ -158,7 +162,8 @@ var DrawLine = function drawLine(options){
         .classed('axis yAxis',true);
     
     var xAxis = d3.svg.axis().scale(xScale).orient('bottom')
-        .ticks(4);
+        // .ticks(5)
+        .tickFormat(function(d){return d3.time.format('%Y-%m-%d')(new Date((d * 1000)));});
         // .tickFormat(d3.time.format('%Y%m%d'));
     var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
@@ -216,8 +221,8 @@ var DrawLine = function drawLine(options){
         }
         var xMax = Math.max.apply(null,xColumnMaximums),
             yMax = Math.max.apply(null,yColumnMaximums);
-        console.log('xMax = ' + xMax);
-        console.log('yMax = ' + yMax);
+        // console.log('xMax = ' + xMax);
+        // console.log('yMax = ' + yMax);
 
         // Get the Minimum values
         var xColumnMinimums = [];
@@ -230,10 +235,8 @@ var DrawLine = function drawLine(options){
         }
         var xMin = Math.min.apply(null,xColumnMinimums),
             yMin = Math.min.apply(null,yColumnMinimums);
-        console.log('xMin = ' + xMin);
-        console.log('yMin = ' + yMin);
-        
-        // return;
+        // console.log('xMin = ' + xMin);
+        // console.log('yMin = ' + yMin);
 
         /**
          * -------
@@ -249,6 +252,9 @@ var DrawLine = function drawLine(options){
         /**
          * AXES
          */
+        console.log('---');
+        console.log('calling x axis');
+        console.log('---');
         xAxisG.call(xAxis);
         yAxisG.call(yAxis);
 
@@ -258,17 +264,6 @@ var DrawLine = function drawLine(options){
          */
         
         var lines = [];
-        
-
-        // var line = d3.svg.line()
-        //     .x(function(d){ return xScale(d[settings.xColumn]); })
-        //     .y(function(d){ return yScale(d[settings.yColumn]); })
-        //     .interpolate('basis');
-
-        // var line2 = d3.svg.line()
-        //     .x(function(d){ return xScale(d[settings.xColumn]); })
-        //     .y(function(d){ return yScale(d[settings.yColumn2]); })
-        //     .interpolate('linear');
 
         for (i = 0; i < settings.yColumn.length; i++) {
             lines[i] = d3.svg.line()
@@ -280,23 +275,8 @@ var DrawLine = function drawLine(options){
                 .attr('d',lines[i](data))
                 .attr('fill','none')
                 .classed('y1',true)
-                // .attr('stroke','black')
                 .attr('stroke-width','1px');
         }
-
-        // path
-        //     .attr('d',line(data))
-        //     .attr('fill','none')
-        //     .classed('y1',true)
-        //     // .attr('stroke','black')
-        //     .attr('stroke-width','1px');
-
-        // path2
-        //     .attr('d',line2(data))
-        //     .attr('fill','none')
-        //     // .attr('stroke','black')
-        //     .classed('y2',true)
-        //     .attr('stroke-width','1px');
 
 
     }
